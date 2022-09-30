@@ -22,7 +22,7 @@ namespace Medical_Center_API_CSharp.model
         public string CRM { get; set; }
         public DateTime CreatedAt { get; set; }
         [JsonIgnore]
-        public virtual List<Consulta> Consultas { get; set; }
+        public List<Consulta> Consultas { get; set; }
 
         public Medico(string Name, string Email, string Phone, string CRM) {
             this.Name = Name;

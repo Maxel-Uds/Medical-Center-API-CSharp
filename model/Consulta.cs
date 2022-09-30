@@ -10,21 +10,18 @@ namespace Medical_Center_API_CSharp.model
         [DataType(DataType.Date, ErrorMessage="Data em formato inválido")]
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime ConsultationDate { get; set; }
-
         [Required(ErrorMessage = "O tipo de consulta é obrigatória")]
         public int TipoConsultaId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual TipoConsulta TipoConsulta { get; set; }
-
+        public TipoConsulta TipoConsulta { get; set; }
         [Required(ErrorMessage = "Informe um paciente!")]
         public int PacienteId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual Paciente Paciente { get; set; }
-
+        public Paciente Paciente { get; set; }
         [Required(ErrorMessage = "Informe um médico!")]
         public int MedicoId { get; set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingNull)]
-        public virtual Medico Medico { get; set; }
+        public Medico Medico { get; set; }
 
         public Consulta(DateTime ConsultationDate, int TipoConsultaId, int PacienteId, int MedicoId) {
             this.ConsultationDate = ConsultationDate;

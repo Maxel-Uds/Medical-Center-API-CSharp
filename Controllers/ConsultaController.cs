@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using Medical_Center_API_CSharp.model;
 using Medical_Center_API_CSharp.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace Medical_Center_API_CSharp.Controllers
 {
@@ -17,17 +19,22 @@ namespace Medical_Center_API_CSharp.Controllers
         [HttpPost]
         public IActionResult AgendarConsulta([FromBody] Consulta consulta)
         {
-            Consulta _consulta = ConsultaService.CriarConsulta(_context, consulta);
-            _context.Consulta.Add(_consulta);
+            _context.Consulta.Add(consulta);
             _context.SaveChanges();
-            return Created("", _consulta); 
+            return Created("", consulta); 
         }
 
         [Route("listar")]
         [HttpGet]
         public IActionResult ListarAgendamentos()
         {
-            return Ok(_context.Consulta.ToList());
+            var consultas = _context.Consulta
+                .Include(consulta => consulta.Medico)
+                .Include(consulta => consulta.Paciente)
+                .Include(consulta => consulta.TipoConsulta)
+                .ToList();
+            
+            return Ok(consultas);
         }
 
         [Route("cancelar/{id}")]
@@ -44,17 +51,6 @@ namespace Medical_Center_API_CSharp.Controllers
             }
 
             return NotFound("Nenhuma consulta foi achada com o id: " + id);
-        }
-    }
-
-    public static class ConsultaService {
-
-        public static Consulta CriarConsulta(DataContext context, Consulta consulta) {
-            consulta.Paciente = context.Paciente.Find(consulta.PacienteId);
-            consulta.Medico = context.Medico.Find(consulta.MedicoId);
-            consulta.TipoConsulta = context.TipoConsulta.Find(consulta.TipoConsultaId);
-
-            return consulta;
         }
     }
 }

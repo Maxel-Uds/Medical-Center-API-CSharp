@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Medical_Center_API_CSharp.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20220924212423_AddConsultList")]
-    partial class AddConsultList
+    [Migration("20220930042423_CriandoTabelas")]
+    partial class CriandoTabelas
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

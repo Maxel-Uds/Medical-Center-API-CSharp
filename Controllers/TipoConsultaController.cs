@@ -25,5 +25,25 @@ namespace Medical_Center_API_CSharp.Controllers
         public IActionResult ListarTipoConsulta() {
             return Ok(_context.TipoConsulta.ToList());
         }
+       
+        
+        [Route("deletar/{id}")]
+        [HttpDelete]
+        public IActionResult DeletarTipoConsulta([FromRoute] int id)
+        {
+            TipoConsulta tipoconsulta = _context.TipoConsulta.Find(id);
+
+
+
+            if (tipoconsulta != null)
+            {
+
+                _context.TipoConsulta.Remove(tipoconsulta);
+                _context.SaveChanges();
+                return Ok(tipoconsulta);
+            }
+
+            return NotFound("Nenhum tipo de consulta foi encontrado com o id: " + id);
+        }
     }
 }

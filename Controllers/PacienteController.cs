@@ -32,7 +32,7 @@ namespace Medical_Center_API_CSharp.Controllers
             return Ok(_context.Paciente.ToList());
         }
 
-        Route("listar/{id}")]
+        [Route("listar/{id}")]
         [HttpGet]
         public IActionResult ListarPacienteId([FromRoute] int id)
         {

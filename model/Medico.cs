@@ -30,6 +30,7 @@ namespace Medical_Center_API_CSharp.model
             this.Phone = Phone;
             this.CRM = CRM;
             this.CreatedAt = DateTime.Now;
+  
         }
     }
 }

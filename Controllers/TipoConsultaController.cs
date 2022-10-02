@@ -20,5 +20,10 @@ namespace Medical_Center_API_CSharp.Controllers
             _context.SaveChanges();
             return Created("", tipo);
         }
+          [Route("listar")]
+        [HttpGet]
+        public IActionResult ListarTipoConsulta() {
+            return Ok(_context.TipoConsulta.ToList());
+        }
     }
 }

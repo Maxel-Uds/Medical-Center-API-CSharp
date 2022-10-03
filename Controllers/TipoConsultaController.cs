@@ -1,6 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using Medical_Center_API_CSharp.model;
 using Medical_Center_API_CSharp.Repository;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+
 
 namespace Medical_Center_API_CSharp.Controllers
 {
@@ -20,7 +24,8 @@ namespace Medical_Center_API_CSharp.Controllers
             _context.SaveChanges();
             return Created("", tipo);
         }
-          [Route("listar")]
+
+        [Route("listar")]
         [HttpGet]
         public IActionResult ListarTipoConsulta() {
             return Ok(_context.TipoConsulta.ToList());

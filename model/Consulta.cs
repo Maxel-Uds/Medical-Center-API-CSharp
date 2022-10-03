@@ -9,6 +9,7 @@ namespace Medical_Center_API_CSharp.model
         public int Id { get; set; }
         [DataType(DataType.Date, ErrorMessage="Data em formato inválido")]
         [DisplayFormat(DataFormatString = "{yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DateExists]
         public DateTime ConsultationDate { get; set; }
         [Required(ErrorMessage = "O tipo de consulta é obrigatória")]
         public int TipoConsultaId { get; set; }

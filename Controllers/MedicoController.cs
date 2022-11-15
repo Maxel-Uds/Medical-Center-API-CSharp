@@ -4,6 +4,7 @@ using Medical_Center_API_CSharp.model;
 using Medical_Center_API_CSharp.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Medical_Center_API_CSharp.dto;
 
 namespace Medical_Center_API_CSharp.Controllers
 {
@@ -61,11 +62,11 @@ namespace Medical_Center_API_CSharp.Controllers
 
         [Route("alterar")]
         [HttpPatch]
-        public IActionResult Alterar([FromBody] Medico medico)
+        public IActionResult Alterar([FromBody] MedicoDto medicoDto)
         {
-            _context.Medico.Update(medico);
+            _context.Medico.Update(Medico.toMedico(medicoDto));
             _context.SaveChanges();
-            return Ok(medico);
+            return Ok(medicoDto);
         }
             
     }

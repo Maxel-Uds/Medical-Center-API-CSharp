@@ -31,17 +31,12 @@ namespace Medical_Center_API_CSharp.Controllers
             return Ok(_context.Medico.ToList());
         }
 
-        [Route("listar/{id}")]
+        [Route("buscar/{id}")]
         [HttpGet]
-        public IActionResult ListarMedicoId([FromRoute] int id) {
+        public IActionResult BuscarMedicoById([FromRoute] int id) {
 
-            Medico medico =
-                _context.Medico.FirstOrDefault
-            (
-                f => f.Id.Equals(id)
-            );
-
-            return medico != null ? Ok(medico) : NotFound();
+            Medico medico = _context.Medico.Find(id);
+            return medico != null ? Ok(medico) : NotFound("Nenhum médico foi encontrado com o id: " + id);
         }
 
         [Route("deletar/{id}")]

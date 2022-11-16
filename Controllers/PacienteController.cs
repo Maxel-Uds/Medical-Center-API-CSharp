@@ -32,18 +32,12 @@ namespace Medical_Center_API_CSharp.Controllers
             return Ok(_context.Paciente.ToList());
         }
 
-        [Route("listar/{id}")]
+        [Route("buscar/{id}")]
         [HttpGet]
-        public IActionResult ListarPacienteId([FromRoute] int id)
+        public IActionResult BuscarPacienteById([FromRoute] int id)
         {
-
-            Paciente paciente =
-                _context.Paciente.FirstOrDefault
-            (
-                f => f.Id.Equals(id)
-            );
-
-            return paciente != null ? Ok(paciente) : NotFound();
+            Paciente paciente = _context.Paciente.Find(id);
+            return paciente != null ? Ok(paciente) : NotFound("Nenhum paciente foi achado com o id: " + id);
         }
 
 
@@ -52,8 +46,6 @@ namespace Medical_Center_API_CSharp.Controllers
         public IActionResult DeletarPaciente([FromRoute] int id)
         {
             Paciente paciente = _context.Paciente.Find(id);
-
-
 
             if (paciente != null)
             {

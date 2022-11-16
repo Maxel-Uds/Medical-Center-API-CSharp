@@ -64,7 +64,7 @@ namespace Medical_Center_API_CSharp.Controllers
         [HttpPatch]
         public IActionResult Alterar([FromBody] MedicoDto medicoDto)
         {
-            _context.Medico.Update(Medico.toMedico(medicoDto));
+            _context.Medico.Update(Medico.updateMedico(_context.Medico.Find(medicoDto.Id), medicoDto));
             _context.SaveChanges();
             return Ok(medicoDto);
         }

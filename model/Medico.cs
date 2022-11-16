@@ -33,9 +33,10 @@ namespace Medical_Center_API_CSharp.model
             this.CreatedAt = DateTime.Now;
         }
 
-        public static Medico toMedico(MedicoDto medicoDto) {
-            Medico medico = new Medico(medicoDto.Name, medicoDto.Email, medicoDto.Phone, medicoDto.CRM);
-            medico.Id = medicoDto.Id;
+        public static Medico updateMedico(Medico medico, MedicoDto medicoDto) {
+            medico.Name = medicoDto.Name;
+            medico.Email = medicoDto.Email;
+            medico.Phone = medicoDto.Phone;
             return medico;
         } 
     }

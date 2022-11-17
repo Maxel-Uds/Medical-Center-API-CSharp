@@ -3,6 +3,7 @@ using System.Linq;
 using Medical_Center_API_CSharp.model;
 using Medical_Center_API_CSharp.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Medical_Center_API_CSharp.dto;
 
@@ -36,7 +37,18 @@ namespace Medical_Center_API_CSharp.Controllers
         public IActionResult BuscarMedicoById([FromRoute] int id) {
 
             Medico medico = _context.Medico.Find(id);
-            return medico != null ? Ok(medico) : NotFound("Nenhum médico foi encontrado com o id: " + id);
+
+            if(medico == null) {
+                return NotFound("Nenhum médico foi encontrado com o id: " + id);
+            }
+
+            List<Consulta> consultas = _context.Consulta.Where(consulta => consulta.MedicoId == id)
+                .Include(consulta => consulta.Medico)
+                .Include(consulta => consulta.Paciente)
+                .Include(consulta => consulta.TipoConsulta)
+                .ToList();
+
+            return Ok(new MedicoBuscarDto(medico, consultas));
         }
 
         [Route("deletar/{id}")]
@@ -57,7 +69,7 @@ namespace Medical_Center_API_CSharp.Controllers
 
         [Route("alterar")]
         [HttpPatch]
-        public IActionResult Alterar([FromBody] MedicoDto medicoDto)
+        public IActionResult Alterar([FromBody] MedicoUpdateDto medicoDto)
         {
             _context.Medico.Update(Medico.updateMedico(_context.Medico.Find(medicoDto.Id), medicoDto));
             _context.SaveChanges();

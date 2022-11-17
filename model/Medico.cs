@@ -1,6 +1,5 @@
 using System;
 using System.Text.Json.Serialization;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using Medical_Center_API_CSharp.Validation;
 using Medical_Center_API_CSharp.dto;
@@ -22,8 +21,6 @@ namespace Medical_Center_API_CSharp.model
         [CrmExists]
         public string CRM { get; set; }
         public DateTime CreatedAt { get; set; }
-        [JsonIgnore]
-        public List<Consulta> Consultas { get; set; }
 
         public Medico(string Name, string Email, string Phone, string CRM) {
             this.Name = Name;
@@ -33,7 +30,7 @@ namespace Medical_Center_API_CSharp.model
             this.CreatedAt = DateTime.Now;
         }
 
-        public static Medico updateMedico(Medico medico, MedicoDto medicoDto) {
+        public static Medico updateMedico(Medico medico, MedicoUpdateDto medicoDto) {
             medico.Name = medicoDto.Name;
             medico.Email = medicoDto.Email;
             medico.Phone = medicoDto.Phone;

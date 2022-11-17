@@ -5,7 +5,7 @@ using Medical_Center_API_CSharp.Validation;
 
 namespace Medical_Center_API_CSharp.dto
 {
-    public class MedicoDto
+    public class MedicoUpdateDto
     {
         [Required(ErrorMessage = "O campo id é obrigatório!")]
         public int Id { get; set; }
@@ -19,7 +19,7 @@ namespace Medical_Center_API_CSharp.dto
         public string Phone { get; set; }
         public string CRM { get; set; }
 
-        public MedicoDto(int Id, string Name, string Email, string Phone, string CRM) {
+        public MedicoUpdateDto(int Id, string Name, string Email, string Phone, string CRM) {
             this.Id = Id;
             this.Name = Name;
             this.Email = Email;

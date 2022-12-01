@@ -30,7 +30,14 @@ namespace Medical_Center_API_CSharp.Controllers
         public IActionResult ListarTipoConsulta() {
             return Ok(_context.TipoConsulta.ToList());
         }
-       
+
+        [Route("buscar/{id}")]
+        [HttpGet]
+        public IActionResult BuscarTipoConsultaById([FromRoute] int id)
+        {
+            TipoConsulta tipoConsulta = _context.TipoConsulta.Find(id);
+            return tipoConsulta != null ? Ok(tipoConsulta) : NotFound("Nenhum tipo de consulta foi achado com o id: " + id);
+        }
         
         [Route("deletar/{id}")]
         [HttpDelete]
